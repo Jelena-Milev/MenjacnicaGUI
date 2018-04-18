@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Rectangle;
+import java.awt.TextArea;
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
@@ -64,7 +66,7 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem mntmDodajKurs;
 	private JMenuItem mntmObrisiKurs;
 	private JMenuItem mntmIzvrsiZamenu;
-
+	private MenjacnicaGUI gp=this;
 	/**
 	 * Launch the application.
 	 */
@@ -94,7 +96,7 @@ public class MenjacnicaGUI extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit()
 				.getImage(MenjacnicaGUI.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
 		setTitle("Menjacnica");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		setJMenuBar(getMenuBar_1());
 		setLocationRelativeTo(null);
@@ -142,6 +144,12 @@ public class MenjacnicaGUI extends JFrame {
 	private JButton getBtnDodajKurs() {
 		if (btnDodajKurs == null) {
 			btnDodajKurs = new JButton("Dodaj kurs");
+			btnDodajKurs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					DodajKursGUI dodajKurs=new DodajKursGUI(gp);
+					dodajKurs.setVisible(true);
+				}
+			});
 			btnDodajKurs.setPreferredSize(new Dimension(131, 25));
 		}
 		return btnDodajKurs;
@@ -203,7 +211,7 @@ public class MenjacnicaGUI extends JFrame {
 			mntmSave.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					sacuvaj();
-					
+
 				}
 			});
 			mntmSave.setIcon(
@@ -322,6 +330,12 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem getMntmDodajKurs() {
 		if (mntmDodajKurs == null) {
 			mntmDodajKurs = new JMenuItem("Dodaj kurs");
+			mntmDodajKurs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					DodajKursGUI dodajKurs=new DodajKursGUI(gp);
+					dodajKurs.setVisible(true);
+				}
+			});			
 		}
 		return mntmDodajKurs;
 	}
@@ -345,6 +359,7 @@ public class MenjacnicaGUI extends JFrame {
 				JOptionPane.YES_NO_CANCEL_OPTION);
 		if (opcija == JOptionPane.YES_OPTION)
 			System.exit(0);
+
 	}
 
 	private void sacuvaj() {
@@ -363,5 +378,8 @@ public class MenjacnicaGUI extends JFrame {
 			File f = jc.getSelectedFile();
 			textAreaStatus.append("\nUcitan fajl: " + f);
 		}
+	}
+	void ispisiUStatusu(String s) {
+		textAreaStatus.append("\n"+s);
 	}
 }
